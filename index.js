@@ -8,7 +8,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/webhook', (req, res) => {
-  console.log('Mensaje recibido:', req.body)
+  console.log('BODY:', JSON.stringify(req.body, null, 2))
+  console.log('HEADERS:', JSON.stringify(req.headers, null, 2))
   res.status(200).json({ ok: true })
 })
 
