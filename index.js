@@ -96,5 +96,17 @@ Nunca des el total sin saber la ciudad. Nunca aceptes dirección sin calle y nú
   }
 })
 
+app.get('/webhook', (req, res) => {
+  const mode = req.query['hub.mode']
+  const token = req.query['hub.verify_token']
+  const challenge = req.query['hub.challenge']
+
+  if (mode === 'subscribe' && token === process.env.WEBHOOK_VERIFY_TOKEN) {
+    res.status(200).send(challenge)
+  } else {
+    res.status(403).send('Forbidden')
+  }
+})
+
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`))
